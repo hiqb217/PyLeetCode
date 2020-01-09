@@ -18,15 +18,14 @@ Output: False
 
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
-        d = []
-        x = 0
-        while x**2 <= c:
-            d.append(x**2)
-            x += 1
-
-        for i in range(len(d)):
-            val = c - i**2
-            if val in d:
+        lower = 0
+        upper = floor(c**0.5)
+        while lower <= upper:
+            test = lower*lower + upper * upper
+            if test < c:
+                lower += 1
+            elif test > c:
+                upper -= 1
+            else:
                 return True
-
         return False
