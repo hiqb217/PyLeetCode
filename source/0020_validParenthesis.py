@@ -41,7 +41,25 @@ class Solution:
             '(': [0, 2],
             '}': [1, 0],
             ']': [1, 1],
-            ')': [1, 2],
+            ')': [1, 2]
         }
+        open_list = []  # store list of open parenthesis in order
+
+        if not s:  # edge case input ''
+            return True
+
         for i in range(len(s)):
-            print('')
+            if dict[s[i]][0] == 0:  # if open bracket
+                open_list.append(dict[s[i]][1])
+
+            # first closed bracket must be last element of open list
+            elif open_list and dict[s[i]][1] == open_list[-1]:
+                open_list.pop(-1)
+
+            else:
+                return False
+
+        if not open_list:  # if open list not empty then there is unclosed open brackets
+            return True
+
+        return False
